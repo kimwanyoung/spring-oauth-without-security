@@ -19,16 +19,21 @@ public class Member {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "member_id")
 	private Long id;
-
+	private String oauthId;
 	private String email;
 	private String password;
 	private String nickname;
 
 	@Builder
-	public Member(Long id, String email, String password, String nickname) {
+	public Member(Long id, String oauthId, String email, String password, String nickname) {
 		this.id = id;
+		this.oauthId = oauthId;
 		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
+	}
+
+	public void updateOauthId(String oauthId) {
+		this.oauthId = oauthId;
 	}
 }
