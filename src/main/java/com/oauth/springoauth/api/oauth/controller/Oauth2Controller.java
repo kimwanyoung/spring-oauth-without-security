@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oauth.springoauth.api.oauth.controller.dto.LoginResponse;
+import com.oauth.springoauth.api.oauth.service.Oauth2Service;
 
 import lombok.RequiredArgsConstructor;
 
