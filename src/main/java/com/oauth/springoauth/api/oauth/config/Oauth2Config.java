@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 import com.oauth.springoauth.api.oauth.adapter.Oauth2Adapter;
-import com.oauth.springoauth.api.oauth.provider.Oauth2Provider;
+import com.oauth.springoauth.api.oauth.provider.Oauth2ProviderProperties;
 import com.oauth.springoauth.api.oauth.service.Oauth2ClientService;
 import com.oauth.springoauth.api.oauth.service.Oauth2ProviderType;
 import com.oauth.springoauth.api.oauth.service.RestTemplateOauth2ClientService;
@@ -25,7 +25,7 @@ public class Oauth2Config {
 
 	@Bean
 	public MemoryProviderRepository memoryProviderRepository() {
-		Map<Oauth2ProviderType, Oauth2Provider> providers = Oauth2Adapter.getOauth2Provider(properties);
+		Map<Oauth2ProviderType, Oauth2ProviderProperties> providers = Oauth2Adapter.getOauth2Provider(properties);
 		return new MemoryProviderRepository(providers);
 	}
 

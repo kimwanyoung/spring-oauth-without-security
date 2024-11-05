@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.oauth.springoauth.api.oauth.config.MemoryProviderRepository;
 import com.oauth.springoauth.api.oauth.controller.dto.LoginResponse;
-import com.oauth.springoauth.api.oauth.provider.Oauth2Provider;
+import com.oauth.springoauth.api.oauth.provider.Oauth2ProviderProperties;
 import com.oauth.springoauth.api.oauth.service.dto.Oauth2MemberProfile;
 import com.oauth.springoauth.domain.member.MemberRepository;
 import com.oauth.springoauth.domain.member.MemberService;
@@ -23,7 +23,7 @@ public class Oauth2Service {
 
 	public LoginResponse loginOrRegister(String authorizationCode, String providerName) throws JsonProcessingException {
 		Oauth2ProviderType providerType = Oauth2ProviderType.of(providerName);
-		Oauth2Provider provider = memoryProviderRepository.findProvider(providerType);
+		Oauth2ProviderProperties provider = memoryProviderRepository.findProvider(providerType);
 		String oauthAccessToken = oauthClientService.requestAccessToken(authorizationCode, provider);
 		Oauth2MemberProfile memberProfile = oauthClientService
 			.requestMemberProfile(oauthAccessToken, providerName, provider);

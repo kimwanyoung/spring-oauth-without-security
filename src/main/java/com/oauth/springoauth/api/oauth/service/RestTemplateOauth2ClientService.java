@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.oauth.springoauth.api.oauth.provider.Oauth2Provider;
+import com.oauth.springoauth.api.oauth.provider.Oauth2ProviderProperties;
 import com.oauth.springoauth.api.oauth.service.dto.Oauth2MemberProfile;
 
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class RestTemplateOauth2ClientService implements Oauth2ClientService {
 	private final RestTemplate restTemplate;
 
 	@Override
-	public String requestAccessToken(String code, Oauth2Provider provider) throws JsonProcessingException {
+	public String requestAccessToken(String code, Oauth2ProviderProperties provider) throws JsonProcessingException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		headers.setBasicAuth(provider.getClientId(), provider.getClientSecret());
@@ -55,7 +55,8 @@ public class RestTemplateOauth2ClientService implements Oauth2ClientService {
 	}
 
 	@Override
-	public Oauth2MemberProfile requestMemberProfile(String accessToken, String providerName, Oauth2Provider provider
+	public Oauth2MemberProfile requestMemberProfile(String accessToken, String providerName,
+		Oauth2ProviderProperties provider
 	) throws JsonProcessingException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(accessToken);
