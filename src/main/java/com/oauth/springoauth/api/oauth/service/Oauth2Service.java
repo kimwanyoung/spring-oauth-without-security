@@ -47,7 +47,14 @@ public class Oauth2Service {
 		if (!memberRepository.existsByOauthId(memberProfile.getOauthId())) {
 			register(memberProfile);
 		}
-		return new LoginResponse("");
+		return login(memberProfile);
+	}
+
+	private LoginResponse login(Oauth2MemberProfile memberProfile) {
+		Member member = memberRepository.findByEmail(memberProfile.getEmail())
+			.orElseThrow(() -> new IllegalArgumentException("가입된 유저를 찾을 수 없습니다."));
+		String accessToken = jwtHelper.generateAccessToken(member);
+		return new LoginResponse(accessToken);
 	}
 
 	private void register(Oauth2MemberProfile memberProfile) {
