@@ -9,8 +9,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.oauth.springoauth.api.oauth.adapter.Oauth2Adapter;
 import com.oauth.springoauth.api.oauth.provider.Oauth2Provider;
-import com.oauth.springoauth.api.oauth.service.OauthClientService;
-import com.oauth.springoauth.api.oauth.service.RestTemplateOauthClientService;
+import com.oauth.springoauth.api.oauth.service.Oauth2ClientService;
+import com.oauth.springoauth.api.oauth.service.RestTemplateOauth2ClientService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +29,7 @@ public class Oauth2Config {
 	}
 
 	@Bean
-	public OauthClientService oauthClientService() {
-		return new RestTemplateOauthClientService(restTemplate);
+	public Oauth2ClientService oauthClientService() {
+		return new RestTemplateOauth2ClientService(restTemplate);
 	}
 }

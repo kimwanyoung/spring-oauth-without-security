@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class RestTemplateOauthClientService implements OauthClientService {
+public class RestTemplateOauth2ClientService implements Oauth2ClientService {
 
 	private final RestTemplate restTemplate;
 
