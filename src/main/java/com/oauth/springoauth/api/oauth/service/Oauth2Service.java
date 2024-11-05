@@ -2,8 +2,11 @@ package com.oauth.springoauth.api.oauth.service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.Map;
 
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oauth.springoauth.api.oauth.config.MemoryProviderRepository;
 import com.oauth.springoauth.api.oauth.controller.dto.LoginResponse;
 import com.oauth.springoauth.api.oauth.provider.Oauth2Provider;
+import com.oauth.springoauth.api.oauth.service.dto.Oauth2MemberProfile;
 import com.oauth.springoauth.common.JwtHelper;
 import com.oauth.springoauth.domain.member.MemberRepository;
 import com.oauth.springoauth.security.PasswordEncoder;
@@ -37,6 +41,7 @@ public class Oauth2Service {
 	public LoginResponse loginOrRegister(String authorizationCode, String providerName) throws JsonProcessingException {
 		Oauth2Provider provider = memoryProviderRepository.findProvider(providerName);
 		String oauthAccessToken = requestAccessToken(authorizationCode, provider);
+		Oauth2MemberProfile memberProfile = requestMemberProfile(oauthAccessToken, providerName, provider);
 		return new LoginResponse("");
 	}
 
@@ -62,5 +67,26 @@ public class Oauth2Service {
 		ResponseEntity<String> response = restTemplate.exchange(request, String.class);
 		JsonNode jsonNode = new ObjectMapper().readTree(response.getBody());
 		return jsonNode.get("access_token").asText();
+	}
+
+	private Oauth2MemberProfile requestMemberProfile(
+		String accessToken,
+		String providerName,
+		Oauth2Provider provider
+	) throws JsonProcessingException {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setBearerAuth(accessToken);
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		HttpEntity<Object> requestHeader = new HttpEntity<>(null, headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(
+			provider.getUserInfoUrl(),
+			HttpMethod.GET,
+			requestHeader,
+			String.class);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> attributes = mapper.readValue(response.getBody(), Map.class);
+		return Oauth2Attributes.extract(providerName, attributes);
 	}
 }
