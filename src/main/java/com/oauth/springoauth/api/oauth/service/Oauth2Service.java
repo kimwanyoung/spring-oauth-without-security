@@ -1,6 +1,7 @@
 package com.oauth.springoauth.api.oauth.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.oauth.springoauth.api.oauth.config.MemoryProviderRepository;
 import com.oauth.springoauth.api.oauth.controller.dto.LoginResponse;
@@ -14,10 +15,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Oauth2Service {
 
-	private final MemberRepository memberRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtHelper jwtHelper;
+	private final MemberRepository memberRepository;
 	private final MemoryProviderRepository memoryProviderRepository;
+	private final RestTemplate restTemplate;
 
 	public LoginResponse loginOrRegister(String authorizationCode, String providerName) {
 		return new LoginResponse("");
