@@ -12,6 +12,7 @@ import com.oauth.springoauth.api.oauth.provider.Oauth2Provider;
 @Configuration
 @EnableConfigurationProperties(Oauth2Properties.class)
 public class Oauth2Config {
+	
 	private final Oauth2Properties properties;
 
 	public Oauth2Config(Oauth2Properties properties) {

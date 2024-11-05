@@ -6,6 +6,7 @@ import java.util.Map;
 import com.oauth.springoauth.api.oauth.provider.Oauth2Provider;
 
 public class MemoryProviderRepository {
+	
 	private final Map<String, Oauth2Provider> providers;
 
 	public MemoryProviderRepository(Map<String, Oauth2Provider> providers) {

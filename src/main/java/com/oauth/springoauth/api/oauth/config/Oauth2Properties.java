@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @ConfigurationProperties(prefix = "oauth2")
 public class Oauth2Properties {
+	
 	private final Map<String, User> user = new HashMap<>();
 	private final Map<String, Provider> provider = new HashMap<>();
 

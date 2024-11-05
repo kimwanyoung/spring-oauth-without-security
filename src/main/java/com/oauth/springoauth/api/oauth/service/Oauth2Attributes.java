@@ -19,10 +19,8 @@ public enum Oauth2Attributes {
 	KAKAO("kakao") {
 		@Override
 		public Oauth2MemberProfile of(Map<String, Object> attributes) {
-			Map<String, Object> containEmailResponse = ((Map<String, Object>)attributes.get(
-				"kakao_account"));
-			Map<String, Object> containNameResponse = ((Map<String, Object>)attributes.get(
-				"properties"));
+			Map<String, Object> containEmailResponse = ((Map<String, Object>)attributes.get("kakao_account"));
+			Map<String, Object> containNameResponse = ((Map<String, Object>)attributes.get("properties"));
 			return Oauth2MemberProfile.builder()
 				.oauthId(attributes.get("id").toString())
 				.email((String)containEmailResponse.get("email"))

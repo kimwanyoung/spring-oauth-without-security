@@ -7,6 +7,7 @@ import lombok.Getter;
 
 @Getter
 public class Oauth2Provider {
+	
 	private final String clientId;
 	private final String clientSecret;
 	private final String redirectUrl;
