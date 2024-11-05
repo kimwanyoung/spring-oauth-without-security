@@ -22,7 +22,8 @@ public class Oauth2Service {
 	private final MemberService memberService;
 
 	public LoginResponse loginOrRegister(String authorizationCode, String providerName) throws JsonProcessingException {
-		Oauth2Provider provider = memoryProviderRepository.findProvider(providerName);
+		Oauth2ProviderType providerType = Oauth2ProviderType.of(providerName);
+		Oauth2Provider provider = memoryProviderRepository.findProvider(providerType);
 		String oauthAccessToken = oauthClientService.requestAccessToken(authorizationCode, provider);
 		Oauth2MemberProfile memberProfile = oauthClientService
 			.requestMemberProfile(oauthAccessToken, providerName, provider);
