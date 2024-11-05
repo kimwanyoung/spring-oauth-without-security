@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.oauth.springoauth.api.oauth.controller.dto.LoginResponse;
 import com.oauth.springoauth.api.oauth.service.Oauth2Service;
 
@@ -24,7 +25,7 @@ public class Oauth2Controller {
 	public ResponseEntity<LoginResponse> loginOrRegister(
 		@PathVariable String provider,
 		@RequestBody String authorizationCode
-	) {
+	) throws JsonProcessingException {
 		LoginResponse response = oauth2Service.loginOrRegister(authorizationCode, provider);
 		return ResponseEntity
 			.status(HttpStatus.OK)
