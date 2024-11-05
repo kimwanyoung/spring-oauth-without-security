@@ -12,7 +12,7 @@ import com.oauth.springoauth.api.oauth.provider.Oauth2Provider;
 @Configuration
 @EnableConfigurationProperties(Oauth2Properties.class)
 public class Oauth2Config {
-	
+
 	private final Oauth2Properties properties;
 
 	public Oauth2Config(Oauth2Properties properties) {
@@ -20,7 +20,7 @@ public class Oauth2Config {
 	}
 
 	@Bean
-	public MemoryProviderRepository inMemoryProviderRepository() {
+	public MemoryProviderRepository memoryProviderRepository() {
 		Map<String, Oauth2Provider> providers = Oauth2Adapter.getOauth2Provider(properties);
 		return new MemoryProviderRepository(providers);
 	}
